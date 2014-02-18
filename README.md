@@ -19,6 +19,13 @@ Multiple filenames can be processed at once:
 	b.mdown
 	c.mdown
 
+Omit input filename parameters and they will be instead read from stdin:
+
+	$ echo "foo\n\bar\nbaz" | cext csv
+	foo.csv
+	bar.csv
+	baz.csv
+
 ## Installation
 
   * Clone the repository

@@ -2,8 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
+const size_t in_buffer_sz = 4096;
+
 char *buffer = NULL;
 size_t buffer_sz = 0;
+
+void* alloc(size_t sz) {
+    void* ptr = malloc(sz);
+    if (!ptr) {
+        fprintf(stderr, "malloc failed\n");
+        exit(1);
+    }
+    return ptr;
+}
 
 void usage() {
     fprintf(stderr, "cext: usage: cext extension filename1 [filename2...]\n");
@@ -18,11 +29,7 @@ void adjust_buffer(size_t sz) {
             actual_sz <<= 1;
 
         buffer_sz = actual_sz;
-        buffer = malloc(buffer_sz);
-        if (buffer == 0) {
-            fprintf(stderr, "malloc failed\n");
-            exit(1);
-        }
+        buffer = alloc(buffer_sz);
     }
 }
 
@@ -52,14 +59,21 @@ void replace_extension(int ix, const char *filename, const char *extension) {
 }
 
 int main(int argc, char *argv[]) {
-
-    if (argc < 3) {
+    if (argc < 2) {
         usage();
         exit(1);
+    } else if (argc == 2) {
+        int ix = 0;
+        char *in_buffer = alloc(in_buffer_sz);
+        while (fgets(in_buffer, in_buffer_sz, stdin)) {
+            char *nl = strchr(in_buffer, '\n');
+            if (nl)
+                *nl = 0;
+            replace_extension(ix++, in_buffer, argv[1]);
+        }
+    } else {
+        for (int i = 2; i < argc; ++i) {
+            replace_extension(i - 2, argv[i], argv[1]);
+        }
     }
-
-    for (int i = 2; i < argc; ++i) {
-        replace_extension(i - 2, argv[i], argv[1]);
-    }
-
 }
