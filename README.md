@@ -1,4 +1,4 @@
-# cext
+# cext(1)
 
 A tiny command line utility for replacing file extensions.
 
