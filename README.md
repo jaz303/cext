@@ -4,17 +4,17 @@ A tiny command line utility for replacing file extensions.
 
 ## Example
 
-	$ cext foo.jpg gif
+	$ cext gif foo.jpg
 	foo.gif
 
 If the input file has no extension an extension will be appended instead:
 
-	$ cext bar png
+	$ cext png bar
 	bar.png
 
 Multiple filenames can be processed at once:
 
-	$ cext a.txt b.text c mdown
+	$ cext mdown a.txt b.text c
 	a.mdown
 	b.mdown
 	c.mdown

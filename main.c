@@ -6,7 +6,7 @@ char *buffer = NULL;
 size_t buffer_sz = 0;
 
 void usage() {
-	fprintf(stderr, "cext: usage: cext filename1 [filename2...] extension\n");
+	fprintf(stderr, "cext: usage: cext extension filename1 [filename2...]\n");
 }
 
 void adjust_buffer(size_t sz) {
@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 
-	for (int i = 1; i < argc - 1; ++i) {
-		replace_extension(i - 1, argv[i], argv[argc-1]);
+	for (int i = 2; i < argc; ++i) {
+		replace_extension(i - 2, argv[i], argv[1]);
 	}
 
 }
