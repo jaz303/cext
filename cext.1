@@ -1,0 +1,60 @@
+.TH CEXT 1
+.SH NAME
+cext \- replace extensions in filenames
+.SH SYNOPSIS
+.B cext
+.IR extension
+.IR file...
+.SH DESCRIPTION
+.B cext
+accepts a list filenames, either as arguments or through standard input, replacing each filename's existing extension with
+.IR extension
+\&. For any input filename without an extension,
+.IR .extension
+will instead be appended.
+.PP
+NOTE: cext only translates filenames,
+.B it does not rename files.
+.SH EXAMPLES
+Replace the extension of a single filename:
+.PP
+.nf
+.RS
+$ cext jpg foo.jpeg
+foo.jpg
+.RE
+.fi
+.PP
+Replace the extension of multiple filenames:
+.PP
+.nf
+.RS
+$ cext jpg a.jpeg b.jpeg c.jpeg
+a.jpg
+b.jpg
+c.jpg
+.RE
+.fi
+.PP
+Append an extension to a filename:
+.PP
+.nf
+.RS
+$ cext mdown README
+README.mdown
+.RE
+.fi
+.PP
+Replace extensions in filenames read from standard input:
+.PP
+.nf
+.RS
+$ echo "foo.a\\nbar.b\\nbaz.c" | cext tmp
+foo.tmp
+bar.tmp
+baz.tmp
+.RE
+.fi
+.PP
+.SH AUTHOR
+Jason Frame <jason@onehackoranother.com> (http://jasonframe.co.uk)
